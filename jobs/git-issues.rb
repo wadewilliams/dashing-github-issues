@@ -12,7 +12,11 @@ git_issue_label = "bug"
 event_name = "git_issues_labeled_defects"
 
 ## the endpoint we'll be hitting
-uri = "https://api.github.com/repos/#{git_owner}/#{git_project}/issues?state=open&labels=#{git_issue_label}&access_token=#{git_token}"
+if git_token.nil? || git_token.empty?
+    uri = "https://api.github.com/repos/#{git_owner}/#{git_project}/issues?state=open&labels=#{git_issue_label}"
+else
+    uri = "https://api.github.com/repos/#{git_owner}/#{git_project}/issues?state=open&labels=#{git_issue_label}&access_token=#{git_token}"
+end
 
 ## Create an array to hold our data points
 points = []
